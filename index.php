@@ -17,46 +17,17 @@
   $meta_twitter_creator = '@';
   ?>
 
-  <!--Meta SEO -->
-  <?php include 'src/parts/head-seo.php'; ?>
-
-  <!--App Theme -->
-  <?php include 'src/parts/head-app-theming.php'; ?>
-
-  <!--Favicon-->
-  <?php include 'src/parts/head-favicon.php'; ?>
-
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
-
-  <!-- Resets -->
-  <style type="text/css">
-    <?php include 'src/styles/cell_reset.css'; ?>
-  </style>
 
   <!--Imports-->
   <style type="text/css">
     <?php include 'var_mercury.css'; ?>
   </style>
-  <link rel="stylesheet" href="styles.css" />
-
 </head>
 
 <body>
   <main>
-    <div id="loop" aria-hidden="true" focusable="false">
-      <div class="overlay"></div>
-      <figure class="cell video self cover cover-full self-c-h bleed">
-        <div class="media">
-          <video class="custom" autoplay playsinline loop preload disablePictureInPicture>
-            <source src="public/video/loop.mp4" type="video/mp4" />
-          </video>
-        </div>
-      </figure>
-    </div>
-
-
-
     <section id="logo">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 510 165">
 
@@ -143,7 +114,7 @@
           </a>
 
           <?php $email = 'info@animativespace.com'; ?>
-          <a class="email txt" href="mailto:<?php echo $email ?>">
+          <a class="email txt" href="mailto:<?= $email ?>">
             <i>
               <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 256 256">
                 <path fill="none" d="M0 0H256V256H0z" />
@@ -201,6 +172,17 @@
 
       </section>
     </section>
+
+    <div id="loop" aria-hidden="true" focusable="false">
+      <div class="overlay"></div>
+      <figure class="cell video self cover cover-full self-c-h bleed">
+        <div class="media">
+          <video class="custom" autoplay playsinline loop preload disablePictureInPicture>
+            <source src="public/video/loop.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </figure>
+    </div>
   </main>
 
   <script type="module">
@@ -255,9 +237,6 @@
       fadeVolume(video, 0, 1, 1500);
     });
   </script>
-
-
-  <script type="module" src="js/index.js"></script>
 </body>
 
 </html>
