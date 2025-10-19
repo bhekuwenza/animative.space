@@ -1,0 +1,26 @@
+@font-face {
+  font-family: 'relative';
+  src: url('Relative-Book.woff2') format('woff2'),
+    url('Relative-Book.woff') format('woff'),
+    url('Relative-Book.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'relative';
+  src: url('Relative-Medium.woff2') format('woff2'),
+    url('Relative-Medium.woff') format('woff'),
+    url('Relative-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'relative';
+  src: url('Relative-Bold.woff2') format('woff2'),
+    url('Relative-Bold.woff') format('woff'),
+    url('Relative-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
