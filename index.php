@@ -128,7 +128,6 @@
       </div>
       <section id="network">
 
-        <!-- <div class="h5"><button>About</button></div> -->
         <div class="links">
           <a target="_blank" class="txt" href="http://animativespacestore.myshopify.com">
             <i>
@@ -198,67 +197,67 @@
             <span class="srt">youtube</span>
           </a>
 
-          <!-- <a target="_blank" class="txt" href="https://www.twitter.com/animativespace">
-            <i>
-              <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 56.6 56.6">
-                <path fill="#e64ba9" fill-rule="evenodd" d="M56.6,28.3c0,15.6-12.7,28.3-28.3,28.3S0,43.9,0,28.3S12.7,0,28.3,0S56.6,12.7,56.6,28.3z" clip-rule="evenodd" />
-                <path fill="#02122e" fill-rule="evenodd" d="M28.6,23.3C27.2,16,36,11.6,41.2,16.9c0,0,2.3-0.7,4.4-2c0,0-0.7,2.5-3.3,4.1 c0,0,2.8-0.4,4-1.1c0,0-1.2,2.5-3.4,3.4C44.1,38.2,26,48.4,11.3,40c0,0,7.2,0.4,10.3-3.2c0,0-4.5,0.4-6.7-5c0,0,1.7,0.7,3.3-0.2 c0,0-5.2-0.8-5.7-7.1c0,0,1.7,1.3,3.5,0.8c0,0-5.8-3.4-2.5-9.7C13.6,15.8,19.8,23.6,28.6,23.3L28.6,23.3z" clip-rule="evenodd" />
-              </svg>
-            </i>
-            <span class="srt">twitter</span>
-          </a> -->
-
         </div>
-        <!-- <button class="video-time"><span class="value"></span></button> -->
 
       </section>
     </section>
   </main>
 
-  <script>
+  <script type="module">
+    // Add a getter for HTMLMediaElement.playing (still useful)
     Object.defineProperty(HTMLMediaElement.prototype, 'playing', {
-      get: function() {
-        return !!(this.currentTime > 0 && !this.paused && !this.ended && this.readyState > 2);
-      }
+      configurable: true,
+      enumerable: false,
+      get() {
+        return (
+          this.currentTime > 0 &&
+          !this.paused &&
+          !this.ended &&
+          this.readyState > 2
+        );
+      },
     });
 
-    const isReadyScript = (event) => {
-
-      // 
-      function changeVolume(video, start, end, duration) {
-        let startTimestamp = null;
-        const step = (timestamp) => {
-          if (!startTimestamp) startTimestamp = timestamp;
-          const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-          video.volume = progress * (end - start) + start;
-          if (progress < 1) {
-            window.requestAnimationFrame(step);
-          }
-        };
-        window.requestAnimationFrame(step);
-      }
-
-      // 
+    // Wait for DOM to load
+    document.addEventListener("DOMContentLoaded", async () => {
       const dream = document.querySelector('#loop');
       const mark = document.querySelector('#noise');
-      const video = dream.querySelector('video');
+      const video = dream?.querySelector('video');
 
       if (!video) return;
 
-      video.muted = false;
+      // Respect browser autoplay policies
+      video.muted = true;
       video.volume = 0;
-      video.play();
 
-    }
-    document.addEventListener("DOMContentLoaded", isReadyScript);
+      try {
+        await video.play();
+      } catch (err) {
+        console.warn('Autoplay was blocked by the browser:', err);
+        // Optionally show a play button or user prompt here
+        return;
+      }
+
+      // Smooth volume fade-in after successful playback
+      const fadeVolume = (video, from = 0, to = 1, duration = 2000) => {
+        let start = null;
+        const step = (timestamp) => {
+          if (!start) start = timestamp;
+          const progress = Math.min((timestamp - start) / duration, 1);
+          video.volume = from + progress * (to - from);
+          if (progress < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      };
+
+      // Unmute and fade in audio
+      video.muted = false;
+      fadeVolume(video, 0, 1, 1500);
+    });
   </script>
+
 
   <script type="module" src="js/index.js"></script>
-  <script id="__bs_script__">
-    //<![CDATA[
-    document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.3'><\/script>".replace("HOST", location.hostname));
-    //]]>
-  </script>
 </body>
 
 </html>
