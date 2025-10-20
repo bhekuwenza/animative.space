@@ -7,24 +7,56 @@
   <meta name='viewport' content="width=device-width,height=device-height, initial-scale=1, shrink-to-fit=yes">
 
   <?php
-  $meta_author = '';
-  $meta_url = '';
-  $meta_title = '';
-  $meta_description = '';
-  $meta_keywords = '';
-  $meta_img_src = '';
-  // 
-  $meta_twitter_creator = '@';
-  ?>
+  $meta_author = 'John Doe';
+  $meta_url = 'https://animative.space';
+  $meta_title = 'Animative Space';
+  $meta_description = 'Animative Space is a Toronto based comprehensive firm and studio geared mostly towards the creation of stylized art prints and collectables | Stephan Mercury';
+  $meta_keywords = '3d, 2d, motion design, and graphic design';
+  $meta_img_src = 'https://animative.space/animative.space.jpg';
+  $meta_twitter_creator = '@animativespace';
+?>
 
-  <!-- RSS -->
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+<!-- Basic SEO -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="<?php echo htmlspecialchars($meta_author); ?>">
+<meta name="description" content="<?php echo htmlspecialchars($meta_description); ?>">
+<meta name="keywords" content="<?php echo htmlspecialchars($meta_keywords); ?>">
+<link rel="canonical" href="<?php echo htmlspecialchars($meta_url); ?>">
+
+<!-- Open Graph / Facebook / LinkedIn -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="<?php echo htmlspecialchars($meta_url); ?>">
+<meta property="og:title" content="<?php echo htmlspecialchars($meta_title); ?>">
+<meta property="og:description" content="<?php echo htmlspecialchars($meta_description); ?>">
+<meta property="og:image" content="<?php echo htmlspecialchars($meta_img_src); ?>">
+<meta property="og:site_name" content="<?php echo htmlspecialchars($meta_title); ?>">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="<?php echo htmlspecialchars($meta_url); ?>">
+<meta name="twitter:title" content="<?php echo htmlspecialchars($meta_title); ?>">
+<meta name="twitter:description" content="<?php echo htmlspecialchars($meta_description); ?>">
+<meta name="twitter:image" content="<?php echo htmlspecialchars($meta_img_src); ?>">
+<meta name="twitter:creator" content="<?php echo htmlspecialchars($meta_twitter_creator); ?>">
+
+<!-- Favicon (optional but recommended) -->
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#010101">
 
   <!--Imports-->
   <style type="text/css">
     <?php include 'var_mercury.css'; ?>
   </style>
 </head>
+
+<!-- 
+  Developed by Ngqabutho Zondo
+  Website: https://ngqabutho.com
+  Version: 1.0.0
+  Created in 2021
+-->
 
 <body>
   <main>
@@ -113,7 +145,7 @@
             <span class="srt">shop</span>
           </a>
 
-          <?php $email = 'info@animativespace.com'; ?>
+          <?php $email = 'info@animative.space'; ?>
           <a class="email txt" href="mailto:<?= $email ?>">
             <i>
               <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 256 256">
@@ -178,7 +210,7 @@
       <figure class="cell video self cover cover-full self-c-h bleed">
         <div class="media">
           <video class="custom" autoplay playsinline loop preload disablePictureInPicture>
-            <source src="public/video/loop.mp4" type="video/mp4" />
+            <source src="loop.mp4" type="video/mp4" />
           </video>
         </div>
       </figure>
