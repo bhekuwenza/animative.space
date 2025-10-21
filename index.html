@@ -909,85 +909,36 @@
         <div class="overlay"></div>
         <figure class="cell video self cover cover-full self-c-h bleed">
           <div class="media">
-            <!-- <video
+            <video
               class="custom"
               autoplay
               playsinline
               loop
+              muted
               preload
               disablePictureInPicture
             >
-              <source
-                src="loop.mp4"
-                type="video/mp4"
-              />
-            </video> -->
-            <video 
-              class="custom"
-              src="https://private-user-images.githubusercontent.com/5841924/503844240-fc5bb3c4-0378-4e3a-97bf-589306f8e85f.mp4?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjEwNzUxMDQsIm5iZiI6MTc2MTA3NDgwNCwicGF0aCI6Ii81ODQxOTI0LzUwMzg0NDI0MC1mYzViYjNjNC0wMzc4LTRlM2EtOTdiZi01ODkzMDZmOGU4NWYubXA0P1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI1MTAyMSUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNTEwMjFUMTkyNjQ0WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9MzgzNTdkNjRlZjZlNjU2ODNmYTE2MjdlNWRiZGJhYTEwYmM0ZTk1OGMxYTI5MTIxZGM3ODJjMWZiYmU2MmZkMyZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QifQ.X4gMskteD7zxC_If0-nFD6oBCwhf4XbMzlU92Q8U2W0" 
-              data-canonical-src="https://private-user-images.githubusercontent.com/5841924/503844240-fc5bb3c4-0378-4e3a-97bf-589306f8e85f.mp4?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjEwNzUxMDQsIm5iZiI6MTc2MTA3NDgwNCwicGF0aCI6Ii81ODQxOTI0LzUwMzg0NDI0MC1mYzViYjNjNC0wMzc4LTRlM2EtOTdiZi01ODkzMDZmOGU4NWYubXA0P1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI1MTAyMSUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNTEwMjFUMTkyNjQ0WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9MzgzNTdkNjRlZjZlNjU2ODNmYTE2MjdlNWRiZGJhYTEwYmM0ZTk1OGMxYTI5MTIxZGM3ODJjMWZiYmU2MmZkMyZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QifQ.X4gMskteD7zxC_If0-nFD6oBCwhf4XbMzlU92Q8U2W0" 
-                autoplay
-                playsinline
-                loop
-                preload
-                disablePictureInPicture
-              muted="muted" 
-            >
+              <source src="loop.mp4" type="video/mp4" />
+            </video>
           </div>
         </figure>
       </div>
     </main>
 
     <script type="module">
-      // Add a getter for HTMLMediaElement.playing (still useful)
-      Object.defineProperty(HTMLMediaElement.prototype, 'playing', {
-        configurable: true,
-        enumerable: false,
-        get() {
-          return (
-            this.currentTime > 0 &&
-            !this.paused &&
-            !this.ended &&
-            this.readyState > 2
-          );
-        },
-      });
-
-      // Wait for DOM to load
       document.addEventListener('DOMContentLoaded', async () => {
-        const dream = document.querySelector('#loop');
-        const mark = document.querySelector('#noise');
-        const video = dream?.querySelector('video');
-
+        const video = document.querySelector('video');
         if (!video) return;
 
-        // Respect browser autoplay policies
         video.muted = true;
         video.volume = 0;
 
         try {
           await video.play();
+          console.log('Autoplay succeeded.');
         } catch (err) {
-          console.warn('Autoplay was blocked by the browser:', err);
-          // Optionally show a play button or user prompt here
-          return;
+          console.warn('Autoplay was blocked:', err);
         }
-
-        // Smooth volume fade-in after successful playback
-        const fadeVolume = (video, from = 0, to = 1, duration = 2000) => {
-          let start = null;
-          const step = (timestamp) => {
-            if (!start) start = timestamp;
-            const progress = Math.min((timestamp - start) / duration, 1);
-            video.volume = from + progress * (to - from);
-            if (progress < 1) requestAnimationFrame(step);
-          };
-          requestAnimationFrame(step);
-        };
-
-        // Unmute and fade in audio
-        video.muted = false;
-        fadeVolume(video, 0, 1, 1500);
       });
     </script>
   </body>
